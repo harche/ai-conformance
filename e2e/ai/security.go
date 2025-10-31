@@ -118,6 +118,8 @@ var _ = WGDescribe("Secure Accelerator Access", func() {
 					},
 				},
 			}
+			// Use CUDA image which ships with nvidia-smi for GPU-enabled pods
+			pod.Spec.Containers[0].Image = "nvidia/cuda:12.4.1-devel-ubuntu22.04"
 			// run-ai/fake-gpu-operator don't support multiple containers, so we need to create two pods.
 			pod2 := pod.DeepCopy()
 			pod, err := f.ClientSet.CoreV1().Pods(ns).Create(ctx, pod, metav1.CreateOptions{})
